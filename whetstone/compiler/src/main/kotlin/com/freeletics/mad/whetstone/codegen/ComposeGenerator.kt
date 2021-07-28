@@ -16,12 +16,12 @@ internal class ComposeGenerator(
         return FunSpec.builder(composableName)
             .addAnnotation(composable)
             .addAnnotation(optInAnnotation())
+            .addParameter("navController", navController)
             .apply {
                 if (data.navigation != null) {
                     if (withFragment) {
                         addParameter("fragment", fragment)
                     } else {
-                        addParameter("navController", navController)
                         addParameter("onBackPressedDispatcher", onBackPressedDispatcher)
                     }
                 }

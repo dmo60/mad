@@ -416,6 +416,7 @@ class FileGeneratorTest {
             import androidx.compose.runtime.rememberCoroutineScope
             import androidx.lifecycle.SavedStateHandle
             import androidx.lifecycle.ViewModel
+            import androidx.navigation.NavController
             import com.freeletics.mad.whetstone.ScopeTo
             import com.freeletics.mad.whetstone.`internal`.InternalWhetstoneApi
             import com.freeletics.mad.whetstone.`internal`.rememberViewModelProvider
@@ -474,7 +475,7 @@ class FileGeneratorTest {
 
             @Composable
             @OptIn(InternalWhetstoneApi::class)
-            public fun TestScreen(): Unit {
+            public fun TestScreen(navController: NavController): Unit {
               val viewModelProvider = rememberViewModelProvider<TestDependencies>(TestParentScope::class) {
                   dependencies, handle -> 
                 val arguments = navController.currentBackStackEntry!!.arguments ?: Bundle.EMPTY
@@ -516,6 +517,8 @@ class FileGeneratorTest {
             import androidx.fragment.app.Fragment
             import androidx.lifecycle.SavedStateHandle
             import androidx.lifecycle.ViewModel
+            import androidx.navigation.NavController
+            import androidx.navigation.fragment.findNavController
             import com.freeletics.mad.whetstone.ScopeTo
             import com.freeletics.mad.whetstone.`internal`.InternalWhetstoneApi
             import com.freeletics.mad.whetstone.`internal`.rememberViewModelProvider
@@ -579,7 +582,7 @@ class FileGeneratorTest {
 
             @Composable
             @OptIn(InternalWhetstoneApi::class)
-            public fun TestScreen(fragment: Fragment): Unit {
+            public fun TestScreen(navController: NavController, fragment: Fragment): Unit {
               val viewModelProvider = rememberViewModelProvider<TestDependencies>(TestParentScope::class) {
                   dependencies, handle -> 
                 val arguments = navController.currentBackStackEntry!!.arguments ?: Bundle.EMPTY
@@ -608,9 +611,10 @@ class FileGeneratorTest {
                 container: ViewGroup?,
                 savedInstanceState: Bundle?
               ): View {
+                val navController = findNavController()
                 val composeView = ComposeView(requireContext())
                 composeView.setContent {
-                  TestScreen(this)
+                  TestScreen(navController, this)
                 }
                 return composeView
               }
@@ -641,6 +645,8 @@ class FileGeneratorTest {
             import androidx.fragment.app.Fragment
             import androidx.lifecycle.SavedStateHandle
             import androidx.lifecycle.ViewModel
+            import androidx.navigation.NavController
+            import androidx.navigation.fragment.findNavController
             import com.freeletics.mad.whetstone.ScopeTo
             import com.freeletics.mad.whetstone.`internal`.InternalWhetstoneApi
             import com.freeletics.mad.whetstone.`internal`.rememberViewModelProvider
@@ -699,7 +705,7 @@ class FileGeneratorTest {
 
             @Composable
             @OptIn(InternalWhetstoneApi::class)
-            public fun TestScreen(): Unit {
+            public fun TestScreen(navController: NavController): Unit {
               val viewModelProvider = rememberViewModelProvider<TestDependencies>(TestParentScope::class) {
                   dependencies, handle -> 
                 val arguments = navController.currentBackStackEntry!!.arguments ?: Bundle.EMPTY
@@ -722,9 +728,10 @@ class FileGeneratorTest {
                 container: ViewGroup?,
                 savedInstanceState: Bundle?
               ): View {
+                val navController = findNavController()
                 val composeView = ComposeView(requireContext())
                 composeView.setContent {
-                  TestScreen()
+                  TestScreen(navController)
                 }
                 return composeView
               }
