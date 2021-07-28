@@ -1,6 +1,8 @@
 package com.freeletics.mad.whetstone.internal
 
+import androidx.activity.OnBackPressedDispatcher
 import androidx.navigation.NavController
+import com.freeletics.mad.navigator.ComposeNavigationHandler
 import com.freeletics.mad.whetstone.ComposeFragment
 import com.freeletics.mad.whetstone.ComposeScreen
 import com.freeletics.mad.whetstone.RendererFragment
@@ -15,12 +17,17 @@ import kotlinx.coroutines.CoroutineScope
  * based implementations and just have the standard state machine and ui setup in the generated
  * Fragment.
  */
-internal class EmptyNavigationHandler : NavigationHandler<EmptyNavigator> {
+internal class EmptyNavigationHandler : ComposeNavigationHandler<EmptyNavigator> {
     init {
         throw UnsupportedOperationException("This is a marker class that should never be used")
     }
 
-    override fun handle(scope: CoroutineScope, navController: NavController, navigator: EmptyNavigator) {
+    override fun handle(
+        scope: CoroutineScope,
+        navController: NavController,
+        onBackPressedDispatcher: OnBackPressedDispatcher,
+        navigator: EmptyNavigator
+    ) {
         throw UnsupportedOperationException("This is a marker class that should never be used")
     }
 }
