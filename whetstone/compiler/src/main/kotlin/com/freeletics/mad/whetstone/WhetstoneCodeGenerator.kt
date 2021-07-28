@@ -58,6 +58,7 @@ class WhetstoneCodeGenerator : CodeGenerator {
     ): GeneratedFile? {
         val component = declaration.findAnnotation(retainedComponentFqName, module) ?: return null
         var whetstone = component.toScreenData(declaration, module)
+        //TODO check that navigationHandler type fits to extra (fragment vs no fragment)
 
         val compose = declaration.findAnnotation(composeFqName, module)
         if (compose != null) {

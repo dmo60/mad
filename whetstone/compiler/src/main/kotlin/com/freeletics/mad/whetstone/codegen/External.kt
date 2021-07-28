@@ -52,6 +52,8 @@ internal val bindsInstance = ClassName("dagger", "BindsInstance")
 // AndroidX
 internal val fragment = ClassName("androidx.fragment.app", "Fragment")
 
+internal val onBackPressedDispatcher = ClassName("androidx.activity", "OnBackPressedDispatcher")
+
 internal val viewModel = ClassName("androidx.lifecycle", "ViewModel")
 internal val savedStateHandle = ClassName("androidx.lifecycle", "SavedStateHandle")
 internal val lifecycleCoroutineScope = MemberName("androidx.lifecycle", "coroutineScope")

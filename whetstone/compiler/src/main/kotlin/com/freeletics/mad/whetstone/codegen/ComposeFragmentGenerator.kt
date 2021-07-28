@@ -25,18 +25,13 @@ internal class ComposeFragmentGenerator(
             .addParameter("container", viewGroup.copy(nullable = true))
             .addParameter("savedInstanceState", bundle.copy(nullable = true))
             .returns(view)
-            .apply {
-                if (data.navigation != null) {
-                    addStatement("val navController = %M()", findNavController)
-                }
-            }
             // requireContext: external method
             .addStatement("val composeView = %T(requireContext())", composeView)
             // setContent: external method
             .beginControlFlow("composeView.setContent {")
             .apply {
                 if (data.navigation != null) {
-                    addStatement("%L(navController)", composableName)
+                    addStatement("%L(this)", composableName)
                 } else {
                     addStatement("%L()", composableName)
                 }

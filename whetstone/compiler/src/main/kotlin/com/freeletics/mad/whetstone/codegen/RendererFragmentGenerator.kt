@@ -79,8 +79,7 @@ internal class RendererFragmentGenerator(
             .addStatement("val navigator = component.%L", data.navigation.navigator.propertyName)
             // lifecycle: external method
             .addStatement("val scope = lifecycle.%M", lifecycleCoroutineScope)
-            .addStatement("val navController = %M()", findNavController)
-            .addStatement("handler.%N(scope, navController, navigator)", navigationHandlerHandle)
+            .addStatement("handler.%N(scope, this, navigator)", navigationHandlerHandle)
             .build()
     }
 }

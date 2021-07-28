@@ -1,5 +1,7 @@
 package com.freeletics.mad.navigator
 
+import androidx.activity.OnBackPressedDispatcher
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import kotlinx.coroutines.CoroutineScope
 
@@ -15,15 +17,36 @@ import kotlinx.coroutines.CoroutineScope
  *
  * This set up allows to have the general navigation logic (when action x happens navigate to
  * screen y) in your business logic layer, for example as a side effect in your state machine.
- * The business logic would only interact with [Navigator] which does not require a reference
+ * The business logic would only interact with [Navigator]
+ * which does not require a reference
  * to Android framework components. That avoids the risk of leaking an `Activity` or `Fragment` and
  * makes the navigation related logic easily testable on the JVM.
  */
-interface NavigationHandler<N : Navigator> {
+sealed interface NavigationHandler<N : Navigator>
+
+interface FragmentNavigationHandler<N : Navigator> : NavigationHandler<N> {
+    /**
+     * Called once for the given [scope] and [fragment] to set up navigation with the
+     * [navigator]. Any ongoing operation in implementations of this method should be cancelled
+     * when the `scope` is cancelled.
+     */
+    fun handle(
+        scope: CoroutineScope,
+        fragment: Fragment,
+        navigator: N
+    )
+}
+
+interface ComposeNavigationHandler<N : Navigator> : NavigationHandler<N> {
     /**
      * Called once for the given [scope] and [navController] to set up navigation with the
      * [navigator]. Any ongoing operation in implementations of this method should be cancelled
-     * when the scope is cancelled.
+     * when the `scope` is cancelled.
      */
-    fun handle(scope: CoroutineScope, navController: NavController, navigator: N)
+    fun handle(
+        scope: CoroutineScope,
+        navController: NavController,
+        onBackPressedDispatcher: OnBackPressedDispatcher,
+        navigator: N
+    )
 }
